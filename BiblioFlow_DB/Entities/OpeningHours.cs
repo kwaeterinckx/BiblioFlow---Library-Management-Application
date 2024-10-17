@@ -17,6 +17,6 @@ namespace BiblioFlow_DB.Entities
 		public Guid LastModifiedById { get; set; }
 
 		public int LibraryId { get; set; }
-        public Library Library { get; set; }
+        public Library Library { get; set; } = null!;
     }
 }

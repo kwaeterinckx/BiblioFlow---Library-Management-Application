@@ -10,17 +10,17 @@ namespace BiblioFlow_DB.Entities
 	{
 		public int BookId { get; set; }
 		public string? ISBN { get; set; }
-		public string Title { get; set; }
+		public string Title { get; set; } = null!;
 		public string? Description { get; set; }
-		public string Publisher { get; set; }
+		public string Publisher { get; set; } = null!;
 		public int PublicationYear { get; set; }
 		public decimal? Price { get; set; }
 		public DateTime CreatedAt { get; set; }
 		public DateTime? LastModifiedAt { get; set; }
 
 		public Guid CreatedByUserId { get; set; }
-		public User CreatedByUser { get; set; }
+		public User CreatedByUser { get; set; } = null!;
 		public Guid? LastModifiedByUserId { get; set; }
-		public User LastModifiedByUser { get; set; }
+		public User LastModifiedByUser { get; set; } = null!;
 	}
 }
