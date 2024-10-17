@@ -11,12 +11,8 @@ namespace BiblioFlow_DB.DataAccess
     public class BiblioFlowContext : DbContext
     {
         public DbSet<User> Users { get; set; }
-        public DbSet<Library> Libraries { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=BiblioFlow;Integrated Security=True;Encrypt=False;Trust Server Certificate=True");
-        }
+        public BiblioFlowContext(DbContextOptions options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

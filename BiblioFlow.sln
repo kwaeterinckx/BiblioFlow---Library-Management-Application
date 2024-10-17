@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35222.181
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BiblioFlow_DB", "BiblioFlow_DB\BiblioFlow_DB.csproj", "{07CECF9B-99B4-4BAA-A0A9-DFFC35B9CE01}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BiblioFlow_DB", "BiblioFlow_DB\BiblioFlow_DB.csproj", "{07CECF9B-99B4-4BAA-A0A9-DFFC35B9CE01}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BiblioFlow_BLL", "BiblioFlow_BLL\BiblioFlow_BLL.csproj", "{A57BD833-BD03-47FF-A349-DEEE1F83A1E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BiblioFlow_API", "BiblioFlow_API\BiblioFlow_API.csproj", "{634C537D-9326-4E47-B258-05785E8B45D3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{07CECF9B-99B4-4BAA-A0A9-DFFC35B9CE01}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{07CECF9B-99B4-4BAA-A0A9-DFFC35B9CE01}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{07CECF9B-99B4-4BAA-A0A9-DFFC35B9CE01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A57BD833-BD03-47FF-A349-DEEE1F83A1E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A57BD833-BD03-47FF-A349-DEEE1F83A1E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A57BD833-BD03-47FF-A349-DEEE1F83A1E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A57BD833-BD03-47FF-A349-DEEE1F83A1E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{634C537D-9326-4E47-B258-05785E8B45D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{634C537D-9326-4E47-B258-05785E8B45D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{634C537D-9326-4E47-B258-05785E8B45D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{634C537D-9326-4E47-B258-05785E8B45D3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
