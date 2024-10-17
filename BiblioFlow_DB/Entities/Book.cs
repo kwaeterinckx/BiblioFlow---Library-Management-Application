@@ -22,5 +22,12 @@ namespace BiblioFlow_DB.Entities
 		public User CreatedByUser { get; set; } = null!;
 		public Guid? LastModifiedByUserId { get; set; }
 		public User LastModifiedByUser { get; set; } = null!;
+
+		public ICollection<Author> Authors { get; set; } = new List<Author>();
+		public ICollection<Category> Categories { get; set; } = new List<Category>();
+		public ICollection<BookStock> BookStocks { get; set; } = new List<BookStock>();
+		public ICollection<Sale> SoldBooks { get; set; } = new List<Sale>();
+		public ICollection<Loan> LentBooks { get; set; } = new List<Loan>();
+		public ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();
 	}
 }

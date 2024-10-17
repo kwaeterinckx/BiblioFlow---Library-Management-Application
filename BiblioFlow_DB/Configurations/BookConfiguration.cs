@@ -62,13 +62,33 @@ namespace BiblioFlow_DB.Configurations
 				.HasOne(b => b.CreatedByUser)
 				.WithMany(u => u.CreatedBooks)
 				.HasForeignKey(b => b.CreatedByUserId)
-				.HasConstraintName("FK_Book_User_CreatedByUserId");
+				.HasConstraintName("FK_Book_User_CreatedByUserId")
+				.OnDelete(DeleteBehavior.NoAction);
 
 			builder
 				.HasOne(b => b.LastModifiedByUser)
 				.WithMany(u => u.LastModifiedBooks)
 				.HasForeignKey(b => b.LastModifiedByUserId)
-				.HasConstraintName("FK_Book_User_LastModifiedByUserId");
+				.HasConstraintName("FK_Book_User_LastModifiedByUserId")
+				.OnDelete(DeleteBehavior.NoAction);
+
+			builder
+				.HasMany(b => b.Authors)
+				.WithMany(a => a.Books)
+				.UsingEntity<Dictionary<string, object>>(
+					"BookAuthor",
+					ba => ba.HasOne<Author>().WithMany().OnDelete(DeleteBehavior.NoAction),
+					ba => ba.HasOne<Book>().WithMany().OnDelete(DeleteBehavior.NoAction)
+				);
+
+			builder
+				.HasMany(b => b.Categories)
+				.WithMany(c => c.Books)
+				.UsingEntity<Dictionary<string, object>>(
+					"BookCategory",
+					bc => bc.HasOne<Category>().WithMany().OnDelete(DeleteBehavior.NoAction),
+					bc => bc.HasOne<Book>().WithMany().OnDelete(DeleteBehavior.NoAction)
+				);
 		}
 	}
 }

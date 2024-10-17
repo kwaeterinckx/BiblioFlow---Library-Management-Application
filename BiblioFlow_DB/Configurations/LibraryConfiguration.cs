@@ -53,13 +53,15 @@ namespace BiblioFlow_DB.Configurations
                 .HasOne(l => l.CreatedByUser)
                 .WithMany(u => u.CreatedLibraries)
                 .HasForeignKey(l => l.CreatedByUserId)
-                .HasConstraintName("FK_Library_User_CreatedByUserId");
+                .HasConstraintName("FK_Library_User_CreatedByUserId")
+				.OnDelete(DeleteBehavior.NoAction);
 
             builder
                 .HasOne(l => l.LastModifiedByUser)
                 .WithMany(u => u.LastModifiedLibraries)
                 .HasForeignKey(l => l.LastModifiedByUserId)
-                .HasConstraintName("FK_Library_User_LastModifiedByUserId");
+                .HasConstraintName("FK_Library_User_LastModifiedByUserId")
+				.OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

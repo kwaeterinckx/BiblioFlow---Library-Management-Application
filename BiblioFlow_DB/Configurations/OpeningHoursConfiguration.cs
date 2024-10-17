@@ -52,7 +52,8 @@ namespace BiblioFlow_DB.Configurations
 				.HasOne(oh => oh.Library)
 				.WithMany(l => l.OpeningHours)
 				.HasForeignKey(oh => oh.LibraryId)
-				.HasConstraintName("FK_OpeningHours_Library_LibraryId");
+				.HasConstraintName("FK_OpeningHours_Library_LibraryId")
+				.OnDelete(DeleteBehavior.NoAction);
 		}
 	}
 }

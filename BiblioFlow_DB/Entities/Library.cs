@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,7 +21,11 @@ namespace BiblioFlow_DB.Entities
 		public Guid? LastModifiedByUserId { get; set; }
 		public User LastModifiedByUser { get; set; } = null!;
 
-		public ICollection<User> StaffMembers { get; set; } = new Collection<User>();
-		public ICollection<OpeningHours> OpeningHours { get; set; } = new Collection<OpeningHours>();
-	}
+		public ICollection<User> StaffMembers { get; set; } = new List<User>();
+		public ICollection<OpeningHours> OpeningHours { get; set; } = new List<OpeningHours>();
+		public ICollection<BookStock> BookStocks { get; set; } = new List<BookStock>();
+		public ICollection<Sale> SoldBooks { get; set; } = new List<Sale>();
+		public ICollection<Loan> LentBooks { get; set; } = new List<Loan>();
+		public ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();
+    }
 }
