@@ -31,5 +31,7 @@ namespace BiblioFlow_DB.Entities
         public ICollection<User> LastModifiedUsers { get; set; }
         public ICollection<Library> CreatedLibraries { get; set; }
         public ICollection<Library> LastModifiedLibraries { get; set; }
+        public ICollection<Book> CreatedBooks { get; set; }
+        public ICollection<Book> LastModifiedBooks { get; set; }
     }
 }
