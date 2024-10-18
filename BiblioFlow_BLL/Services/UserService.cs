@@ -1,4 +1,6 @@
-﻿using BiblioFlow_BLL.Entities;
+﻿using DB = BiblioFlow_DB.Entities;
+
+using BiblioFlow_BLL.Entities;
 using BiblioFlow_BLL.Mappers;
 using BiblioFlow_BLL.Repositories;
 using BiblioFlow_DB.DataAccess;
@@ -24,7 +26,7 @@ namespace BiblioFlow_BLL.Services
         {
             try
             {
-                var user = await _context.Users.SingleOrDefaultAsync(u => u.Email == email);
+                DB.User? user = await _context.Users.SingleOrDefaultAsync(u => u.Email == email);
 
                 return user?.ToUserBLL();
             }

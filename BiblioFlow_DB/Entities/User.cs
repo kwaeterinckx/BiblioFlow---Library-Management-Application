@@ -45,5 +45,6 @@ namespace BiblioFlow_DB.Entities
 		public ICollection<Sale> SoldBooks { get; set; } = new List<Sale>();
 		public ICollection<Loan> LentBooks { get; set; } = new List<Loan>();
 		public ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();
+		public ICollection<Address> Addresses { get; set; } = new List<Address>();
 	}
 }

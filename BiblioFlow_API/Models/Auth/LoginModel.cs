@@ -3,6 +3,6 @@
     public class LoginModel
     {
         public Guid UserId { get; set; }
-        public string Role { get; set; }
+        public required string Role { get; set; }
     }
 }

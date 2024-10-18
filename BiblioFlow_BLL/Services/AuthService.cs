@@ -49,7 +49,7 @@ namespace BiblioFlow_BLL.Services
             {
                 DB.User? user = await _context.Users.Include(u => u.RefreshToken).SingleOrDefaultAsync(u => u.UserId == userId);
 
-                if (user is null || user.RefreshToken.Token != refreshToken || user.RefreshToken.ExpiresAt < DateTime.Now || user.RefreshToken.IsRevoked)
+                if (user is null || user.RefreshToken?.Token != refreshToken || user.RefreshToken.ExpiresAt < DateTime.Now || user.RefreshToken.IsRevoked)
                     return false;
 
                 return true;

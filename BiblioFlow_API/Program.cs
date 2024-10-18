@@ -1,3 +1,4 @@
+using BiblioFlow_API.Services;
 using BiblioFlow_BLL.Entities;
 using BiblioFlow_BLL.Repositories;
 using BiblioFlow_BLL.Services;
@@ -42,8 +43,12 @@ builder.Services.AddDbContext<BiblioFlowContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("BiblioFlow"));
 });
 
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<ICurrentUserRepository, CurrentUserService>();
+
 builder.Services.AddScoped<IAuthRepository<User>, AuthService>();
 builder.Services.AddScoped<IUserRepository<User>, UserService>();
+builder.Services.AddScoped<ILibraryRepository<Library>, LibraryService>();
 
 var app = builder.Build();
 

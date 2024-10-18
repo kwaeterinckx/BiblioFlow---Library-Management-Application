@@ -2,6 +2,7 @@
 using BiblioFlow_API.Models.Auth;
 using BiblioFlow_BLL.Entities;
 using BiblioFlow_BLL.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -30,6 +31,8 @@ namespace BiblioFlow_API.Controllers
         {
             try
             {
+                if (!ModelState.IsValid) return BadRequest(ModelState);
+
                 User? user = await _authRepository.ValidateUserCredentialsAsync(loginForm.Email, loginForm.Password);
 
                 if (user is null) return Unauthorized();
@@ -58,6 +61,8 @@ namespace BiblioFlow_API.Controllers
         {
             try
             {
+                if (!ModelState.IsValid) return BadRequest(ModelState);
+
                 ClaimsPrincipal? principal = GetPrincipalFromExpiredToken(tokenForm.AccessToken);
 
                 if (principal is null) return BadRequest("Invalid Access Token.");
@@ -88,6 +93,7 @@ namespace BiblioFlow_API.Controllers
             }
         }
 
+        [Authorize("LoginRequired")]
         [HttpPost("logout")]
         public async Task<IActionResult> Logout(Guid userId)
         {
