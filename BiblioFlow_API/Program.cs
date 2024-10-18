@@ -16,11 +16,6 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<BiblioFlowContext>(options =>
-{
-    options.UseSqlServer(builder.Configuration.GetConnectionString("BiblioFlow"));
-});
-
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -34,6 +29,18 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ClockSkew = TimeSpan.Zero
         };
     });
+
+builder.Services.AddAuthorizationBuilder()
+    .AddPolicy("AdminRequired", policy => policy.RequireRole("Admin"))
+    .AddPolicy("StaffRequired", policy => policy.RequireRole("Staff"))
+    .AddPolicy("AdminOrStaffRequired", policy => policy.RequireRole("Admin", "Staff"))
+    .AddPolicy("UserRequired", policy => policy.RequireRole("User"))
+    .AddPolicy("LoginRequired", policy => policy.RequireAuthenticatedUser());
+
+builder.Services.AddDbContext<BiblioFlowContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("BiblioFlow"));
+});
 
 builder.Services.AddScoped<IAuthRepository<User>, AuthService>();
 builder.Services.AddScoped<IUserRepository<User>, UserService>();
