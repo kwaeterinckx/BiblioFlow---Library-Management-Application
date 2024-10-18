@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BiblioFlow_DB.Entities;
-using BiblioFlow_DB.Migrations;
 using System.Data;
 
 namespace BiblioFlow_BLL.Entities

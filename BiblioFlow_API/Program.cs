@@ -1,3 +1,6 @@
+using BiblioFlow_BLL.Entities;
+using BiblioFlow_BLL.Repositories;
+using BiblioFlow_BLL.Services;
 using BiblioFlow_DB.DataAccess;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -31,6 +34,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ClockSkew = TimeSpan.Zero
         };
     });
+
+builder.Services.AddScoped<IAuthRepository<User>, AuthService>();
+builder.Services.AddScoped<IUserRepository<User>, UserService>();
 
 var app = builder.Build();
 

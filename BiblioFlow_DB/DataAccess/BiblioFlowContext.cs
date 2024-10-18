@@ -11,6 +11,7 @@ namespace BiblioFlow_DB.DataAccess
     public class BiblioFlowContext : DbContext
     {
         public DbSet<User> Users { get; set; }
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
 
         public BiblioFlowContext(DbContextOptions options) : base(options) { }
 

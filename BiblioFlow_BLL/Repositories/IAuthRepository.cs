@@ -11,6 +11,10 @@ namespace BiblioFlow_BLL.Repositories
     {
         Task<TUser?> ValidateUserCredentialsAsync(string email, string password);
 
+        Task<bool> ValidateRefreshTokenAsync(Guid userId, string refreshToken);
+
+        Task SetLastLoginTimeAsync(Guid userId);
+
         Task SaveRefreshTokenAsync(Guid userId, string refreshToken);
 
         Task RevokeRefreshTokenAsync(Guid userId);

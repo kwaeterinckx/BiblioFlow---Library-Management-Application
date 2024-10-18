@@ -14,6 +14,8 @@ namespace BiblioFlow_BLL.Mappers
         #region To BLL
         public static BLL.User ToUserBLL(this DB.User user)
         {
+            if (user is null) throw new ArgumentNullException(nameof(user));
+
             return new BLL.User(user);
         }
         #endregion

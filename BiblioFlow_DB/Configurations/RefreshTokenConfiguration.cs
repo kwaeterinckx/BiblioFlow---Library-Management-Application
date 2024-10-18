@@ -9,28 +9,32 @@ using System.Threading.Tasks;
 
 namespace BiblioFlow_DB.Configurations
 {
-	public class RefreshTokenConfiguration : IEntityTypeConfiguration<RefreshToken>
-	{
-		public void Configure(EntityTypeBuilder<RefreshToken> builder)
-		{
-			builder
-				.HasKey(t => t.TokenId);
-			builder
-				.Property(t => t.TokenId)
-				.ValueGeneratedOnAdd()
-				.IsRequired();
+    public class RefreshTokenConfiguration : IEntityTypeConfiguration<RefreshToken>
+    {
+        public void Configure(EntityTypeBuilder<RefreshToken> builder)
+        {
+            builder
+                .HasKey(t => t.TokenId);
+            builder
+                .Property(t => t.TokenId)
+                .ValueGeneratedOnAdd()
+                .IsRequired();
 
-			builder
-				.Property(t => t.Token)
-				.IsRequired();
+            builder
+                .Property(t => t.Token)
+                .IsRequired();
 
-			builder
-				.Property(t => t.ExpiryDate)
-				.IsRequired();
+            builder
+                .Property(t => t.ExpiresAt)
+                .IsRequired();
 
-			builder
-				.Property(t => t.IsRevoked)
-				.IsRequired();
-		}
-	}
+            builder
+                .Property(t => t.IsRevoked)
+                .IsRequired();
+
+            builder
+                .Property(t => t.CreatedAt)
+                .IsRequired();
+        }
+    }
 }
