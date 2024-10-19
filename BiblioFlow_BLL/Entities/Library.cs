@@ -37,15 +37,17 @@ namespace BiblioFlow_BLL.Entities
             LastModifiedAt = lastModifiedAt;
             CreatedByUserId = createdByUserId;
             LastModifiedByUserId = lastModifiedByUserId;
+            OpeningHours = new List<OpeningHours>();
         }
-        public Library(ICollection<OpeningHours> openingHours) {
+        public Library(ICollection<OpeningHours> openingHours)
+        {
             OpeningHours = openingHours;
         }
         internal Library(DB.Library library)
             : this(library.Name, library.Address, library.Phone, library.Email, library.CreatedAt, library.LastModifiedAt, library.CreatedByUserId, library.LastModifiedByUserId)
         {
             LibraryId = library.LibraryId;
-            OpeningHours = library.OpeningHours.Select(oh=>oh.ToOpeningHoursBLL()).ToList();
+            OpeningHours = library.OpeningHours.Select(oh => oh.ToOpeningHoursBLL()).ToList();
         }
     }
 }

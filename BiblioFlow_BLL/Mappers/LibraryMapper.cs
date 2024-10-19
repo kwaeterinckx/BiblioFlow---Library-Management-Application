@@ -44,6 +44,20 @@ namespace BiblioFlow_BLL.Mappers
                 LastModifiedByUserId = library.LastModifiedByUserId
             };
         }
+        public static DB.OpeningHours ToOpeningHoursDB(this BLL.OpeningHours openingHours)
+        {
+            if (openingHours is null) throw new ArgumentNullException(nameof(openingHours));
+
+            return new DB.OpeningHours()
+            {
+                DayOfWeek = openingHours.DayOfWeek,
+                OpenTime = openingHours.OpenTime,
+                CloseTime = openingHours.CloseTime,
+                IsClosed = openingHours.IsClosed,
+                LastModifiedAt = openingHours.LastModifiedAt,
+                LastModifiedById = openingHours.LastModifiedById
+            };
+        }
         #endregion
     }
 }

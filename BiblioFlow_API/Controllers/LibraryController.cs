@@ -87,5 +87,41 @@ namespace BiblioFlow_API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [Authorize("AdminRequired")]
+        [HttpPut("edit-library")]
+        public async Task<IActionResult> UpdateLibraryAsync(int libraryId, LibraryForm library)
+        {
+            try
+            {
+                if (!ModelState.IsValid) return BadRequest(ModelState);
+
+                await _libraryRepository.UpdateLibraryAsync(libraryId, library.ToUpdateLibraryBLL(_currentUser.UserId));
+
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [Authorize("AdminRequired")]
+        [HttpPut("edit-openinghours")]
+        public async Task<IActionResult> UpdateLibraryOpeningHoursAsync(int libraryId, LibraryOpeningHoursForm library)
+        {
+            try
+            {
+                if (!ModelState.IsValid) return BadRequest(ModelState);
+
+                await _libraryRepository.UpdateLibraryOpeningHoursAsync(libraryId, library.ToUpdateOpeningHoursBLL(_currentUser.UserId));
+
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

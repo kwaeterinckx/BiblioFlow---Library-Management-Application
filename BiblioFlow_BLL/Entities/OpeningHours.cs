@@ -20,7 +20,7 @@ namespace BiblioFlow_BLL.Entities
         public Guid LastModifiedById { get; }
         public int LibraryId { get; }
 
-        public OpeningHours(int dayOfWeek, TimeOnly? openTime, TimeOnly? closeTime, bool isClosed, DateTime lastModifiedAt, Guid lastModifiedById, int libraryId)
+        public OpeningHours(int dayOfWeek, TimeOnly? openTime, TimeOnly? closeTime, bool isClosed, DateTime lastModifiedAt, Guid lastModifiedById)
         {
             DayOfWeek = dayOfWeek;
             OpenTime = openTime;
@@ -28,11 +28,10 @@ namespace BiblioFlow_BLL.Entities
             IsClosed = isClosed;
             LastModifiedAt = lastModifiedAt;
             LastModifiedById = lastModifiedById;
-            LibraryId = libraryId;
         }
 
         internal OpeningHours(DB.OpeningHours openingHours)
-            : this(openingHours.DayOfWeek, openingHours.OpenTime, openingHours.CloseTime, openingHours.IsClosed, openingHours.LastModifiedAt, openingHours.LastModifiedById, openingHours.LibraryId)
+            : this(openingHours.DayOfWeek, openingHours.OpenTime, openingHours.CloseTime, openingHours.IsClosed, openingHours.LastModifiedAt, openingHours.LastModifiedById)
         {
             OpeningHourId = openingHours.OpeningHourId;
         }

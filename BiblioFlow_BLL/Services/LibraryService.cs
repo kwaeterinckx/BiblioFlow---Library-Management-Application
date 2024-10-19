@@ -41,7 +41,7 @@ namespace BiblioFlow_BLL.Services
         {
             try
             {
-                return await _context.Libraries.Include(l => l.OpeningHours).Select(l => l.ToLibraryBLL()).ToListAsync();
+                return await _context.Libraries.Include(l => l.OpeningHours.OrderBy(oh => oh.DayOfWeek)).Select(l => l.ToLibraryBLL()).ToListAsync();
             }
             catch (Exception)
             {
@@ -53,7 +53,7 @@ namespace BiblioFlow_BLL.Services
         {
             try
             {
-                DB.Library? library = await _context.Libraries.Include(l => l.OpeningHours).SingleOrDefaultAsync(l => l.LibraryId == libraryId);
+                DB.Library? library = await _context.Libraries.Include(l => l.OpeningHours.OrderBy(oh => oh.DayOfWeek)).SingleOrDefaultAsync(l => l.LibraryId == libraryId);
 
                 return library?.ToLibraryBLL();
             }
@@ -67,7 +67,7 @@ namespace BiblioFlow_BLL.Services
         {
             try
             {
-                DB.Library? library = await _context.Libraries.Include(l => l.OpeningHours).SingleOrDefaultAsync(l => l.Name.Contains(libraryName));
+                DB.Library? library = await _context.Libraries.Include(l => l.OpeningHours.OrderBy(oh => oh.DayOfWeek)).SingleOrDefaultAsync(l => l.Name.Contains(libraryName));
 
                 return library?.ToLibraryBLL();
             }
@@ -77,14 +77,57 @@ namespace BiblioFlow_BLL.Services
             }
         }
 
-        public Task UpdateLibraryAsync(int libraryId, BLL.Library library)
+        public async Task UpdateLibraryAsync(int libraryId, BLL.Library library)
         {
-            throw new NotImplementedException();
+            try
+            {
+                DB.Library? libraryToUpdate = await _context.Libraries.SingleOrDefaultAsync(l => l.LibraryId == libraryId);
+
+                if (libraryToUpdate is null) throw new ArgumentNullException(nameof(libraryToUpdate));
+
+                libraryToUpdate.Name = library.Name;
+                libraryToUpdate.Address = library.Address;
+                libraryToUpdate.Phone = library.Phone;
+                libraryToUpdate.Email = library.Email;
+                libraryToUpdate.LastModifiedAt = library.LastModifiedAt;
+                libraryToUpdate.LastModifiedByUserId = library.LastModifiedByUserId;
+
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
-        public Task UpdateLibraryOpeningHoursAsync(int libraryId, BLL.Library library)
+        public async Task UpdateLibraryOpeningHoursAsync(int libraryId, BLL.Library library)
         {
-            throw new NotImplementedException();
+            try
+            {
+                DB.Library? libraryToUpdate = await _context.Libraries.Include(l => l.OpeningHours).SingleOrDefaultAsync(l => l.LibraryId == libraryId);
+
+                if (libraryToUpdate is null) throw new ArgumentNullException(nameof(libraryToUpdate));
+
+                if (libraryToUpdate.OpeningHours is null) libraryToUpdate.OpeningHours = new List<DB.OpeningHours>();
+
+                ICollection<DB.OpeningHours> currentOpeningHours = libraryToUpdate.OpeningHours;
+                ICollection<DB.OpeningHours> newOpeningHours = library.OpeningHours.Select(oh => oh.ToOpeningHoursDB()).ToList();
+
+                foreach (DB.OpeningHours newHours in newOpeningHours)
+                {
+                    DB.OpeningHours? currentHours = currentOpeningHours.SingleOrDefault(coh => coh.DayOfWeek == newHours.DayOfWeek);
+
+                    if (currentHours is null)
+                        libraryToUpdate.OpeningHours.Add(newHours);
+                    else
+                        currentHours = newHours;
+                }
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }

@@ -43,6 +43,27 @@ namespace BiblioFlow_API.Mappers
 
             return new BLL.Library(library.Name, library.Address, library.Phone, library.Email, DateTime.Now, null, createdByUserId, null);
         }
+        public static BLL.Library ToUpdateLibraryBLL(this API.LibraryForm library, Guid lastModifiedByUserId)
+        {
+            if (library is null) throw new ArgumentNullException(nameof(library));
+
+            return new BLL.Library(library.Name, library.Address, library.Phone, library.Email, DateTime.Now, DateTime.Now, lastModifiedByUserId, lastModifiedByUserId);
+        }
+        public static BLL.Library ToUpdateOpeningHoursBLL(this API.LibraryOpeningHoursForm library, Guid lastModifiedByUserId)
+        {
+            if (library is null) throw new ArgumentNullException(nameof(library));
+
+            return new BLL.Library(library.OpeningHours.Select(oh=>oh.ToOpeningHoursBLL(lastModifiedByUserId)).ToList());
+        }
+        public static BLL.OpeningHours ToOpeningHoursBLL(this API.OpeningHoursForm openingHours, Guid lastModifiedByUserId)
+        {
+            if (openingHours is null) throw new ArgumentNullException(nameof(openingHours));
+
+            TimeOnly? openTime = (openingHours.OpenTime is null) ? null : TimeOnly.Parse(openingHours.OpenTime);
+            TimeOnly? closeTime = (openingHours.CloseTime is null) ? null : TimeOnly.Parse(openingHours.CloseTime);
+
+            return new BLL.OpeningHours(openingHours.DayOfWeek, openTime, closeTime, openingHours.IsClosed, DateTime.Now, lastModifiedByUserId);
+        }
         #endregion
     }
 }
