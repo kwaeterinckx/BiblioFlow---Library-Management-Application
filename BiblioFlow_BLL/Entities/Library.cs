@@ -37,7 +37,6 @@ namespace BiblioFlow_BLL.Entities
             LastModifiedAt = lastModifiedAt;
             CreatedByUserId = createdByUserId;
             LastModifiedByUserId = lastModifiedByUserId;
-            OpeningHours = new List<OpeningHours>();
         }
         public Library(ICollection<OpeningHours> openingHours)
         {

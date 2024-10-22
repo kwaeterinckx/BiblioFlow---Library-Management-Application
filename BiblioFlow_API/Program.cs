@@ -49,6 +49,7 @@ builder.Services.AddScoped<ICurrentUserRepository, CurrentUserService>();
 builder.Services.AddScoped<IAuthRepository<User>, AuthService>();
 builder.Services.AddScoped<IUserRepository<User>, UserService>();
 builder.Services.AddScoped<ILibraryRepository<Library>, LibraryService>();
+builder.Services.AddScoped<IBookRepository<Book>, BookService>();
 
 var app = builder.Build();
 
