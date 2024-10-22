@@ -29,6 +29,8 @@ namespace BiblioFlow_DB.DataAccess
             modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
 
             SeedData.SeedAdmin(modelBuilder);
+            SeedData.SeedLibrary(modelBuilder);
+            SeedData.SeedOpeningHours(modelBuilder);
         }
     }
 }

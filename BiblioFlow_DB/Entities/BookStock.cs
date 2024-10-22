@@ -15,7 +15,7 @@ namespace BiblioFlow_DB.Entities
 		public DateTime LastUpdatedAt { get; set; }
 
 		public Guid LastUpdatedByUserId { get; set; }
-		public User LastUpdatedBy { get; set; } = null!;
+		public User LastUpdatedByUser { get; set; } = null!;
 		public int BookId { get; set; }
 		public Book Book { get; set; } = null!;
 		public int LibraryId { get; set; }

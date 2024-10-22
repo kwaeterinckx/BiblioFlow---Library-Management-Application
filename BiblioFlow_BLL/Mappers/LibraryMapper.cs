@@ -55,7 +55,7 @@ namespace BiblioFlow_BLL.Mappers
                 CloseTime = openingHours.CloseTime,
                 IsClosed = openingHours.IsClosed,
                 LastModifiedAt = openingHours.LastModifiedAt,
-                LastModifiedById = openingHours.LastModifiedById
+                LastModifiedByUserId = openingHours.LastModifiedById
             };
         }
         #endregion

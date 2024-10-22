@@ -31,7 +31,7 @@ namespace BiblioFlow_BLL.Entities
         }
 
         internal OpeningHours(DB.OpeningHours openingHours)
-            : this(openingHours.DayOfWeek, openingHours.OpenTime, openingHours.CloseTime, openingHours.IsClosed, openingHours.LastModifiedAt, openingHours.LastModifiedById)
+            : this(openingHours.DayOfWeek, openingHours.OpenTime, openingHours.CloseTime, openingHours.IsClosed, openingHours.LastModifiedAt, openingHours.LastModifiedByUserId)
         {
             OpeningHourId = openingHours.OpeningHourId;
         }

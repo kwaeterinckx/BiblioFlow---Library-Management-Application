@@ -14,7 +14,7 @@ namespace BiblioFlow_DB.Entities
 		public TimeOnly? CloseTime { get; set; }
 		public bool IsClosed { get; set; }
 		public DateTime LastModifiedAt { get; set; }
-		public Guid LastModifiedById { get; set; }
+		public Guid LastModifiedByUserId { get; set; }
 
 		public int LibraryId { get; set; }
         public Library Library { get; set; } = null!;

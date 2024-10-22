@@ -44,7 +44,7 @@ namespace BiblioFlow_DB.Configurations
 				.IsRequired();
 
 			builder
-				.Property(u => u.LastModifiedById)
+				.Property(u => u.LastModifiedByUserId)
 				.HasColumnType("UNIQUEIDENTIFIER")
 				.IsRequired();
 

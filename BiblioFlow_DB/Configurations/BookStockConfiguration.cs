@@ -39,7 +39,7 @@ namespace BiblioFlow_DB.Configurations
 				.IsRequired();
 
 			builder
-				.HasOne(bs => bs.LastUpdatedBy)
+				.HasOne(bs => bs.LastUpdatedByUser)
 				.WithMany(u => u.LastUpdatedBookStock)
 				.HasForeignKey(u => u.LastUpdatedByUserId)
 				.HasConstraintName("FK_BookStock_User_LastUpdatedByUserId")
