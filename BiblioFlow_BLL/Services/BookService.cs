@@ -31,39 +31,64 @@ namespace BiblioFlow_BLL.Services
                 ICollection<DB.Author> newAuthors = newBook.Authors;
                 ICollection<DB.Category> newCategories = newBook.Categories;
 
+                List<DB.Author> authorsToAdd = new List<DB.Author>();
+                List<DB.Category> categoriesToAdd = new List<DB.Category>();
+
                 DB.Book? existingBook;
+
                 if (!string.IsNullOrWhiteSpace(newBook.ISBN))
                 {
                     existingBook = await _context.Books.SingleOrDefaultAsync(eb => eb.ISBN == newBook.ISBN);
                 }
                 else
                 {
-                    existingBook = await _context.Books.SingleOrDefaultAsync(eb => eb.Title == newBook.Title && eb.Authors.OrderBy(a => a).SequenceEqual(newBook.Authors.OrderBy(a => a)));
+                    List<DB.Book> potentialBooks = await _context.Books.Include(b => b.Authors).Where(b => b.Title == newBook.Title).ToListAsync();
+
+                    var normalizedNewAuthors = newBook.Authors
+                        .Select(a => (FirstName: a.FirstName.Trim().ToLower(), LastName: a.LastName.Trim().ToLower()))
+                        .OrderBy(a => a.LastName).ThenBy(a => a.FirstName).ToList();
+
+                    existingBook = potentialBooks.SingleOrDefault(pb => pb.Authors
+                        .Select(a => (FirstName: a.FirstName.Trim().ToLower(), LastName: a.LastName.Trim().ToLower()))
+                        .OrderBy(a => a.LastName).ThenBy(a => a.FirstName)
+                        .SequenceEqual(normalizedNewAuthors));
                 }
 
                 if (existingBook is not null) throw new Exception($"This book already exists: \"{newBook.Title}\"");
 
                 foreach (DB.Author newAuthor in newAuthors)
                 {
-                    DB.Author? existingAuthor = await _context.Authors.SingleOrDefaultAsync(ea => ea.FirstName.Contains(newAuthor.FirstName) && ea.LastName.Contains(newAuthor.LastName));
+                    DB.Author? existingAuthor = await _context.Authors
+                        .SingleOrDefaultAsync(ea => ea.FirstName.Trim().ToLower() == newAuthor.FirstName.Trim().ToLower() &&
+                            ea.LastName.Trim().ToLower() == newAuthor.LastName.Trim().ToLower());
 
                     if (existingAuthor is not null)
                     {
-                        newBook.Authors.Remove(newAuthor);
-                        newBook.Authors.Add(existingAuthor);
+                        authorsToAdd.Add(existingAuthor);
+                    }
+                    else
+                    {
+                        authorsToAdd.Add(newAuthor);
                     }
                 }
+                newBook.Authors = authorsToAdd;
 
                 foreach (DB.Category newCategory in newCategories)
                 {
-                    DB.Category? existingCategory = await _context.Categories.SingleOrDefaultAsync(ec => ec.Name == newCategory.Name);
+                    DB.Category? existingCategory = await _context.Categories
+                        .SingleOrDefaultAsync(ec => ec.Name.Trim().ToLower() == newCategory.Name.Trim().ToLower());
 
                     if (existingCategory is not null)
                     {
-                        newBook.Categories.Remove(newCategory);
-                        newBook.Categories.Add(existingCategory);
+                        categoriesToAdd.Add(existingCategory);
+                    }
+                    else
+                    {
+                        categoriesToAdd.Add(newCategory);
                     }
                 }
+                newBook.Categories = categoriesToAdd;
+
                 await _context.AddAsync(newBook);
                 await _context.SaveChangesAsync();
             }

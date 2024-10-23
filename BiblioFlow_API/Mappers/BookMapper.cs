@@ -19,11 +19,11 @@ namespace BiblioFlow_API.Mappers
                 Publisher = book.Publisher,
                 PublicationYear = book.PublicationYear,
                 Price = book.Price,
-                Authors = book.Authors.Select(a => a.ToAuthorModel()).ToList(),
-                Categories = book.Categories.Select(c => c.ToCategoryModel()).ToList()
+                Authors = book.Authors.Select(a => a.ToBookAuthorModel()).ToList(),
+                Categories = book.Categories.Select(c => c.ToBookCategoryModel()).ToList()
             };
         }
-        public static API.BookAuthorModel ToAuthorModel(this BLL.Author author)
+        public static API.BookAuthorModel ToBookAuthorModel(this BLL.Author author)
         {
             if (author is null) throw new ArgumentNullException(nameof(author));
 
@@ -31,19 +31,17 @@ namespace BiblioFlow_API.Mappers
             {
                 AuthorId = author.AuthorId,
                 FirstName = author.FirstName,
-                LastName = author.LastName,
-                Bio = author.Bio
+                LastName = author.LastName
             };
         }
-        public static API.BookCategoryModel ToCategoryModel(this BLL.Category category)
+        public static API.BookCategoryModel ToBookCategoryModel(this BLL.Category category)
         {
             if (category is null) throw new ArgumentNullException(nameof(category));
 
             return new API.BookCategoryModel()
             {
                 CategoryId = category.CategoryId,
-                Name = category.Name,
-                Description = category.Description
+                Name = category.Name
             };
         }
         #endregion
