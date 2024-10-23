@@ -110,16 +110,6 @@ namespace BiblioFlow_BLL.Services
             }
         }
 
-        public Task<IEnumerable<Book>> GetBookByAuthorAsync(string bookAuthor)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<Book>> GetBookByCategoryAsync(string bookCategory)
-        {
-            throw new NotImplementedException();
-        }
-
         public Task<Book?> GetBookByIdAsync(int bookId)
         {
             throw new NotImplementedException();
@@ -130,12 +120,22 @@ namespace BiblioFlow_BLL.Services
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Book>> GetBookByPublisherAsync(string bookPublisher)
+        public Task<IEnumerable<Book>> GetBookByTitleAsync(string bookTitle)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Book>> GetBookByTitleAsync(string bookTitle)
+        public Task<IEnumerable<Book>> GetBookByAuthorAsync(string bookAuthor)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<Book>> GetBookByCategoryAsync(string bookCategory)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<Book>> GetBookByPublisherAsync(string bookPublisher)
         {
             throw new NotImplementedException();
         }
