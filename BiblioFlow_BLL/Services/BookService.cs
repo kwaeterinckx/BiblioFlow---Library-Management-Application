@@ -102,7 +102,11 @@ namespace BiblioFlow_BLL.Services
         {
             try
             {
-                return await _context.Books.Include(b => b.Authors).Include(b => b.Categories).Select(b => b.ToBookBLL()).ToListAsync();
+                return await _context.Books
+                    .Include(b => b.Authors)
+                    .Include(b => b.Categories)
+                    .Select(b => b.ToBookBLL())
+                    .ToListAsync();
             }
             catch (Exception)
             {
@@ -110,34 +114,106 @@ namespace BiblioFlow_BLL.Services
             }
         }
 
-        public Task<Book?> GetBookByIdAsync(int bookId)
+        public async Task<Book?> GetBookByIdAsync(int bookId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                DB.Book? book = await _context.Books
+                    .Include(b => b.Authors)
+                    .Include(b => b.Categories)
+                    .SingleOrDefaultAsync(b => b.BookId == bookId);
+
+                return book?.ToBookBLL();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
-        public Task<Book?> GetBookByISBNAsync(string isbn)
+        public async Task<Book?> GetBookByISBNAsync(string isbn)
         {
-            throw new NotImplementedException();
+            try
+            {
+                DB.Book? book = await _context.Books
+                    .Include(b => b.Authors)
+                    .Include(b => b.Categories)
+                    .SingleOrDefaultAsync(b => b.ISBN == isbn);
+
+                return book?.ToBookBLL();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
-        public Task<IEnumerable<Book>> GetBookByTitleAsync(string bookTitle)
+        public async Task<IEnumerable<Book>> GetBookByTitleAsync(string bookTitle)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await _context.Books
+                    .Include(b => b.Authors)
+                    .Include(b => b.Categories)
+                    .Where(b => b.Title.Trim().ToLower().Contains(bookTitle.Trim().ToLower()))
+                    .Select(b => b.ToBookBLL())
+                    .ToListAsync();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
-        public Task<IEnumerable<Book>> GetBookByAuthorAsync(string bookAuthor)
+        public async Task<IEnumerable<Book>> GetBookByAuthorAsync(string bookAuthor)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await _context.Books
+                    .Include(b => b.Authors)
+                    .Include(b => b.Categories)
+                    .Where(b => b.Authors.Any(a => a.FirstName.Trim().ToLower().Contains(bookAuthor.Trim().ToLower()) || a.LastName.Trim().ToLower().Contains(bookAuthor.Trim().ToLower())))
+                    .Select(b => b.ToBookBLL())
+                    .ToListAsync();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
-        public Task<IEnumerable<Book>> GetBookByCategoryAsync(string bookCategory)
+        public async Task<IEnumerable<Book>> GetBookByCategoryAsync(string bookCategory)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await _context.Books
+                    .Include(b => b.Authors)
+                    .Include(b => b.Categories)
+                    .Where(b => b.Categories.Any(c => c.Name.Trim().ToLower().Contains(bookCategory.Trim().ToLower())))
+                    .Select(b => b.ToBookBLL())
+                    .ToListAsync();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
-        public Task<IEnumerable<Book>> GetBookByPublisherAsync(string bookPublisher)
+        public async Task<IEnumerable<Book>> GetBookByPublisherAsync(string bookPublisher)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await _context.Books
+                    .Include(b => b.Authors)
+                    .Include(b => b.Categories)
+                    .Where(b => b.Publisher.Trim().ToLower().Contains(bookPublisher.Trim().ToLower()))
+                    .Select(b => b.ToBookBLL())
+                    .ToListAsync();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public Task UpdateBookAsync(int bookId, Book book)
